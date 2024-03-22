@@ -2,7 +2,7 @@
 
 set -e            # fail fast
 set -o pipefail   # don't ignore exit codes when piping output
-set -x          # enable debugging
+set -x            # enable debugging
 
 build_dir=$1
 cache_dir=$2
@@ -17,7 +17,8 @@ mkdir -p $build_dir/vendor/sqlite3/bin
 
 # Download sqlite3
 status "Downloading and sqlite3"
-sqlite3_url="https://s3.amazonaws.com/sqlite3-heroku/sqlite3.tar.gz"
+export "SQLITE3_URL=$(cat $env_dir/SQLITE3_URL)"
+sqlite3_url="${SQLITE3_URL:-https://s3.amazonaws.com/sqlite3-heroku/sqlite3.tar.gz}"
 curl $sqlite3_url -s -o - | tar xzf - -C $build_dir
 
 chmod +x $build_dir/sqlite3
@@ -25,3 +26,7 @@ mv $build_dir/sqlite3 $build_dir/vendor/sqlite3/bin/sqlite3
 
 mkdir -p $build_dir/.profile.d
 echo 'PATH=$PATH:$HOME/vendor/sqlite3/bin' > $build_dir/.profile.d/sqlite3.sh
+
+
+
+export "DEBUG_SQLITE3_URL=$(cat /tmp/env1125553775)"
