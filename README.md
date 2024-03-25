@@ -14,14 +14,15 @@ $ heroku buildpacks:set mdhearing/sqlite3
 
 ```json
 {
-  "environments": {
-      "buildpacks": [
-        {
-          "url": "mdhearing/sqlite3"
-        }
-      ]
+    "environments":
+    {
+        "buildpacks":
+        [
+            {
+                "url": "mdhearing/sqlite3"
+            }
+        ]
     }
-  }
 }
 ```
 
